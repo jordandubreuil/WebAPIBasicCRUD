@@ -56,6 +56,20 @@ app.post("/deleteGame", function(req,res){
     res.redirect('gameList.html');
 })
 
+app.get("/getID::id", function(req, res){
+    console.log(req.params.id);
+    res.redirect("updatePage.html?id=" + req.params.id);
+});
+
+//update route
+app.post("/updateGame", function(req, res){
+    console.log(req.body);
+    //res.redirect('gameList.html')
+    Game.findByIdAndUpdate(req.body.id, {game:req.body.game}, function(){
+      res.redirect("gameList.html");  
+    });
+})
+
 app.use(express.static(__dirname+"/pages"));
 app.listen(port, function(){
     console.log(`Running on port ${port}`);
